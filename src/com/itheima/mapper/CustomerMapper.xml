@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace表示命名空间 -->
+<mapper namespace="com.itheima.mapper.CustomerMapper">
+
+	<sql id="customertable">
+		from ${p}customer
+	</sql>
+
+	<!--根据客户编号获取客户信息 -->
+	<select id="findCustomerById" parameterType="Integer"
+		resultType="com.itheima.po.Customer">
+		select * <include refid="customertable"/> where id = #{sid}
+	</select>
+	
+	<!--根据客户名模糊查询客户信息列表-->
+
+	
+	<!-- 添加客户信息 -->
+	<insert id="addCustomer" parameterType="com.itheima.po.Customer">
+	    insert into t_customer(id,name,jobs,phone,username)
+	    values(#{id},#{name},#{jobs},#{phone},#{username})
+	</insert>
+
+	<insert id="addCus" parameterType="com.itheima.po.Customer">
+		insert into t_cust(uname,password,name,phone,usname)
+		values(#{uname},#{password},#{name},#{phone},#{usname})
+	</insert>
+	<!-- 更新客户信息 -->
+	<update id="updateCustomer" parameterType="com.itheima.po.Customer">
+	    update t_customer
+		<set>
+			<if test="username !=null and username !=''">
+				username=#{username},
+			</if>
+			<if test="jobs !=null and jobs !=''">
+				jobs=#{jobs},
+			</if>
+			<if test="phone !=null and phone !=''">
+				phone=#{phone},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<!-- 删除客户信息 -->
+	<delete id="deleteCustomer" parameterType="Integer">
+	    delete
+		<include refid="customertable" >
+			<property name="p" value="t_" />
+		</include>
+		where id=#{id}
+	</delete>
+
+	<!--根据客户名、工作模糊查询客户信息列表-->
+	<select id="findCustomerByNameAndJobs" parameterType="com.itheima.po.Customer"
+			resultType="com.itheima.po.Customer">
+	     select * from t_customer
+        <where>
+            <choose>
+			<when test="name!=null and name!=''">
+				and name like '%${name}%'
+			</when>
+			<when test="jobs!=null and jobs!=''">
+				and jobs like '%${jobs}%'
+			</when>
+			<otherwise>
+				and phone like '%${phone}%'
+			</otherwise>
+			</choose>
+         </where>
+	</select>
+
+	<select id="findall" resultType="com.itheima.po.Customer" parameterType="String">
+		select * from t_customer where username like '%${value}%'
+	</select>
+	<select id="a" resultType="com.itheima.po.Customer" parameterType="String">
+		select * from t_customer where username like '%${value}%'
+	</select>
+	<select id="aa" resultType="com.itheima.po.Customer" parameterType="String">
+		select * from t_customer where username like '%${value}%'
+	</select>
+	<select id="aaa" resultType="com.itheima.po.Customer" parameterType="String">
+	select * from t_customer where username like '%${value}%'
+	</select>
+
+	<select id="findallll" parameterType="String"
+			resultType="com.itheima.po.Customer">
+		select * from t_customer
+	</select>
+
+
+	<select id="geren" parameterType="String"
+			resultType="com.itheima.po.Customer">
+		select * from t_cust
+	</select>
+	<delete id="del" parameterType="Integer">
+		DELETE from t_customer WHERE id IN
+		<foreach collection="array" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<select id="de" parameterType="Integer"
+			resultType="com.itheima.po.Customer">
+		select * from t_customer where name like '%${value}%'
+	</select>
+	<insert id="zhuchi" parameterType="com.itheima.po.Customer">
+		insert into t_user(username,psw)
+		values(#{username},#{psw})
+	</insert>
+
+	<select id="uname" parameterType="Integer"
+			resultType="com.itheima.po.Customer">
+	  select *from t_user where username = '${username}' and psw = '${psw}'
+	</select>
+</mapper>

@@ -1,0 +1,33 @@
+#dv1{
+	margin:0 auto;
+	margin-top: 20px;
+	height: 200px;
+	width: 300px;
+
+}
+#dv2{
+	background-color:white ;
+	margin:0 auto;
+	margin-top: 200px;
+	height: 300px;
+	width: 370px;
+	border-style: solid ;
+	border-left-color: #ef4136;
+	border-top-color: #ef4136;
+	border-bottom-color: #130c0e;
+	border-right-color:#130c0e;
+
+}
+
+#dv3{
+
+	margin-top:100px ;
+	padding: 30px;
+	border: solid 1px #00B7EE;
+
+}
+#bo1{
+	background: url(../images/aa.jpg)no-repeat;
+	background-size: cover;
+}
+
